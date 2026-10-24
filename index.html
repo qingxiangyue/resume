@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>黄奕博 · AI 应用开发工程师</title>
+<meta name="description" content="黄奕博，AI 应用开发工程师。独立交付无人值守便利店系统与 AI 排盘应用，熟悉 YOLOv8 视觉识别、微信支付、MQTT 设备通信与大模型接入。">
+<style>
+  :root {
+    --ink: #16171a;
+    --ink-2: #5b5f66;
+    --ink-3: #8b9098;
+    --line: #e8e9ec;
+    --bg: #ffffff;
+    --soft: #f6f7f9;
+    --accent: #1c64f2;
+    --radius: 14px;
+    --max: 880px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+                 "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- 顶栏 ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.82);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+  .topbar.scrolled { border-bottom-color: var(--line); }
+  .topbar .inner {
+    max-width: var(--max); margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-weight: 650; letter-spacing: .2px; font-size: 15px; }
+  .nav { display: flex; gap: 22px; }
+  .nav a { font-size: 14px; color: var(--ink-2); transition: color .2s; }
+  .nav a:hover { color: var(--ink); }
+
+  /* ---------- 首屏 ---------- */
+  header.hero { padding: 84px 0 56px; }
+  .status {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; color: var(--ink-2);
+    background: var(--soft); border-radius: 100px;
+    padding: 5px 12px 5px 10px; margin-bottom: 26px;
+  }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #16a34a;
+    box-shadow: 0 0 0 0 rgba(22,163,74,.5);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(22,163,74,.45); }
+    70% { box-shadow: 0 0 0 7px rgba(22,163,74,0); }
+    100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+  }
+  h1 {
+    font-size: clamp(38px, 7vw, 62px);
+    line-height: 1.12;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .role {
+    font-size: clamp(17px, 2.6vw, 21px);
+    color: var(--ink-2);
+    margin-bottom: 24px;
+    letter-spacing: .1px;
+  }
+  .pitch {
+    font-size: clamp(15px, 2.2vw, 17px);
+    color: var(--ink-2);
+    max-width: 620px;
+    margin-bottom: 32px;
+  }
+  .pitch strong { color: var(--ink); font-weight: 600; }
+
+  .contact-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 8px 14px; font-size: 13.5px; color: var(--ink-2);
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .chip:hover { border-color: #cfd2d8; color: var(--ink); transform: translateY(-1px); }
+  .chip svg { width: 14px; height: 14px; opacity: .6; }
+
+  /* ---------- 数据条 ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    margin: 8px 0 0;
+  }
+  .stat { padding: 22px 4px; }
+  .stat + .stat { border-left: 1px solid var(--line); padding-left: 20px; }
+  .stat .num { font-size: 22px; font-weight: 650; letter-spacing: -.4px; }
+  .stat .lab { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 64px 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 28px; }
+  .sec-head h2 { font-size: 13px; letter-spacing: 1.6px; color: var(--ink-3); font-weight: 600; text-transform: uppercase; }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line); }
+
+  /* ---------- 项目 ---------- */
+  .project { padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .project:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .p-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .p-title { font-size: 20px; font-weight: 650; letter-spacing: -.3px; }
+  .p-date { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .p-role { font-size: 14px; color: var(--ink-2); margin-bottom: 14px; }
+  .p-desc { font-size: 15px; color: var(--ink-2); margin-bottom: 16px; max-width: 700px; }
+  ul.bullets { list-style: none; margin-bottom: 16px; }
+  ul.bullets li {
+    position: relative; padding-left: 18px; margin-bottom: 7px;
+    font-size: 15px; color: var(--ink-2);
+  }
+  ul.bullets li::before {
+    content: ""; position: absolute; left: 2px; top: .68em;
+    width: 5px; height: 5px; border-radius: 50%; background: #c9ccd2;
+  }
+  ul.bullets li b { color: var(--ink); font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tag {
+    font-size: 12px; color: var(--ink-2); background: var(--soft);
+    border-radius: 6px; padding: 3px 9px; letter-spacing: .2px;
+  }
+  .p-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; color: var(--accent); font-weight: 500;
+  }
+  .p-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- 技能 ---------- */
+  .skills { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .skill {
+    display: grid; grid-template-columns: 132px 1fr; gap: 16px;
+    padding: 15px 0; border-bottom: 1px solid var(--line); align-items: baseline;
+  }
+  .skill:last-child { border-bottom: none; }
+  .skill .k { font-size: 14px; font-weight: 600; }
+  .skill .v { font-size: 14.5px; color: var(--ink-2); }
+
+  /* ---------- 经历 ---------- */
+  .exp { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+  .exp .co { font-size: 16.5px; font-weight: 600; }
+  .exp .dt { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .exp .pos { font-size: 14px; color: var(--ink-2); margin-bottom: 10px; }
+  .mini-note { font-size: 14px; color: var(--ink-3); margin-top: 22px; }
+
+  /* ---------- 结尾 ---------- */
+  footer {
+    margin-top: 24px; border-top: 1px solid var(--line);
+    padding: 40px 0 64px;
+  }
+  .foot-cta { font-size: clamp(22px, 4vw, 30px); font-weight: 650; letter-spacing: -.6px; margin-bottom: 16px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14.5px; color: var(--ink-2); }
+  .foot-links a:hover { color: var(--ink); }
+  .copyright { margin-top: 36px; font-size: 12.5px; color: var(--ink-3); }
+
+  /* ---------- 出场动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- 手机 ---------- */
+  @media (max-width: 720px) {
+    .nav { display: none; }
+    header.hero { padding: 56px 0 40px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(3) { border-left: none; }
+    .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid var(--line); }
+    .stat + .stat { padding-left: 4px; }
+    .stat { padding: 16px 4px; }
+    section { padding: 48px 0; }
+    .skill { grid-template-columns: 1fr; gap: 3px; }
+    .skill .k { font-size: 13px; }
+    .p-title { font-size: 18px; }
+  }
+  @media print {
+    .topbar, .status, .contact-row, footer .foot-cta { display: none; }
+    .reveal { opacity: 1; transform: none; }
+    body { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="inner">
+    <div class="brand">黄奕博</div>
+    <nav class="nav">
+      <a href="#projects">项目</a>
+      <a href="#skills">技能</a>
+      <a href="#exp">经历</a>
+      <a href="#contact">联系</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <div class="status"><span class="dot"></span>可立即到岗 · 接受异地</div>
+  <h1>黄奕博</h1>
+  <div class="role">AI 应用开发工程师 · 全栈 / 大模型应用</div>
+  <p class="pitch">
+    大专计算机专业，两个自研项目都是从 0 到 1 自己做完的。
+    我擅长把 AI 能力落进能收钱的产品里——<strong>视觉识别、大模型接入、支付与硬件联动</strong>，
+    都能自己跑通全链路。
+  </p>
+  <div class="contact-row">
+    <a class="chip" href="tel:17637875071">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+      176-3787-5071
+    </a>
+    <a class="chip" href="mailto:2938832254@qq.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+      2938832254@qq.com
+    </a>
+    <span class="chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5a8.4 8.4 0 0 1-.9-3.8 8.4 8.4 0 0 1 8.4-8.4 8.4 8.4 0 0 1 8.6 8.4Z"/></svg>
+      微信 qingxiangyue521314
+    </span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats reveal">
+    <div class="stat"><div class="num">2</div><div class="lab">独立交付的产品</div></div>
+    <div class="stat"><div class="num">8 路</div><div class="lab">单卡并发视频流</div></div>
+    <div class="stat"><div class="num">17 类</div><div class="lab">商品检测模型</div></div>
+    <div class="stat"><div class="num">30%</div><div class="lab">大模型接口成本下降</div></div>
+  </div>
+</div>
+
+<section id="projects" class="wrap">
+  <div class="sec-head reveal"><h2>项目</h2><div class="rule"></div></div>
+
+  <article class="project reveal">
+    <div class="p-top">
+      <div class="p-title">无人值守便利店系统「观栈」</div>
+      <div class="p-date">2026.07 — 至今</div>
+    </div>
+    <div class="p-role">独立开发 · AI + 物联网 · 需求分析、方案选型、算法部署、四端交付</div>
+    <p class="p-desc">
+      门店夜间值守人力成本高、盗损难追溯。我用一套「视觉计价 + 行为识别防盗」的完整链路，让门店可以 7×24 小时无人值守。
+    </p>
+    <div class="tags">
+      <span class="tag">Python</span><span class="tag">YOLOv8</span><span class="tag">OpenCV</span>
+      <span class="tag">RTSP</span><span class="tag">MQTT</span><span class="tag">Redis</span>
+      <span class="tag">PostgreSQL</span><span class="tag">微信支付 V3</span><span class="tag">Docker</span>
+    </div>
+    <ul class="bullets">
+      <li>独立完成从需求分析、方案选型到<b>单店试点部署</b>的全流程，交付服务端、Web 后台、购物小程序、店家 APK 四端</li>
+      <li>自建 <b>17 类商品检测数据集</b>，基于 Ultralytics YOLOv8 训练部署检测模型（640 输入、0.35 置信度 + 多帧确认降误检），OpenCV 拉 RTSP 流做实时识别</li>
+      <li>在单台 <b>RTX 3080 + i5-12600 / 32G</b> 的门店主机上并行处理 <b>8 路摄像头</b>，遇到算力瓶颈后自研动态调度：按画面变化与 GPU 占用动态分配推理频率</li>
+      <li>打通「视觉识别 → Redis 暂存购物车 → 结算确认 → 微信支付 V3 → MQTT 门禁放行」全链路，订单与开门指令全量写审计日志</li>
+      <li>支付回调做<b>幂等</b>（Redis 锁 + 状态机校验）与 <b>Celery 定时查单对账补单</b>，避免重复记账与漏单</li>
+    </ul>
+    <a class="p-link" href="https://www.guanzhan.shop" target="_blank" rel="noopener">www.guanzhan.shop ↗</a>
+  </article>
+
+  <article class="project reveal">
+    <div class="p-top">
+      <div class="p-title">AI 智能排盘应用「龙门八字」</div>
+      <div class="p-date">2025.10 — 至今</div>
+    </div>
+    <div class="p-role">独立开发 · 大模型 + 商业化 · 排盘算法、模型接入、商业化模块、桌面端打包</div>
+    <p class="p-desc">
+      传统命理排盘依赖人工，我把它做成了算法 + 大模型解读的产品，并跑通了从付费到交付的完整闭环。
+    </p>
+    <div class="tags">
+      <span class="tag">PHP</span><span class="tag">DeepSeek API</span><span class="tag">SSE 流式输出</span>
+      <span class="tag">结果缓存</span><span class="tag">积分计费</span><span class="tag">激活码</span>
+    </div>
+    <ul class="bullets">
+      <li>自研八字排盘算法：按立春节气切换年柱、以 24 节气节令划分月柱，结合五虎遁 / 五鼠遁推算四柱，并处理 23 点跨日边界</li>
+      <li>接入 DeepSeek 并采用 <b>SSE 流式输出</b>实现逐字生成，设计三层提示词优先级（人设 → 规则 → 用户上下文）</li>
+      <li>实现「积分扣费 + 结果缓存 + 事务与审计日志」，流式生成中实时扣积分，命中缓存不再调用模型，<b>接口成本降低约 30%</b></li>
+      <li>完成商业化闭环：发卡网 + VIP / 积分激活码（并发锁 + 幂等 + 过期校验）、充值流水、后台管理、桌面端分发 v0.2.1，<b>熟人圈内测数百名用户，付费率约 30%</b></li>
+    </ul>
+    <a class="p-link" href="https://paipan.longmenbazi.cn" target="_blank" rel="noopener">paipan.longmenbazi.cn ↗</a>
+  </article>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sec-head reveal"><h2>技能</h2><div class="rule"></div></div>
+  <div class="skills reveal">
+    <div class="skill"><div class="k">大模型应用</div><div class="v">DeepSeek API 接入、SSE 流式输出、提示词分层设计（人设 / 规则 / 上下文）、结果缓存与积分计费、超时重试与降级</div></div>
+    <div class="skill"><div class="k">计算机视觉</div><div class="v">YOLOv8 训练与部署、OpenCV 视频流处理、多帧确认降误检、多路并发动态调度</div></div>
+    <div class="skill"><div class="k">后端与工程</div><div class="v">Python、PHP、Redis、PostgreSQL / MySQL、RESTful API、事务与审计日志、并发锁与幂等、Docker 部署</div></div>
+    <div class="skill"><div class="k">物联网与支付</div><div class="v">MQTT 设备通信、RTSP 摄像头接入、门禁控制、微信支付 V3（Native / JSAPI）、多端联调</div></div>
+    <div class="skill"><div class="k">产品能力</div><div class="v">需求分析、业务流程设计、商业化闭环落地</div></div>
+  </div>
+</section>
+
+<section id="exp" class="wrap">
+  <div class="sec-head reveal"><h2>经历与教育</h2><div class="rule"></div></div>
+  <div class="reveal">
+    <div class="exp"><div class="co">中国人寿</div><div class="dt">2025.05 — 2025.09</div></div>
+    <div class="pos">销售专员</div>
+    <ul class="bullets">
+      <li>负责商业保险产品推广与销售，累计完成十余份商业险成交、拓展十余位意向客户</li>
+      <li>独立完成客户需求诊断与方案讲解，积累了面向非技术用户的表达能力</li>
+    </ul>
+  </div>
+  <div class="reveal" style="margin-top:32px">
+    <div class="exp"><div class="co">驻马店职业技术学院</div><div class="dt">2021.09 — 2024.06</div></div>
+    <div class="pos">大专 · 计算机应用技术</div>
+    <div class="mini-note">在校期间任学生会部长、副主席；国家励志奖学金、驻马店市科学知识竞赛二等奖</div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="reveal">
+    <div class="foot-cta">聊一聊？</div>
+    <div class="foot-links">
+      <a href="tel:17637875071">176-3787-5071</a>
+      <a href="mailto:2938832254@qq.com">2938832254@qq.com</a>
+      <span>微信 qingxiangyue521314</span>
+      <a href="https://www.guanzhan.shop" target="_blank" rel="noopener">观栈 ↗</a>
+      <a href="https://paipan.longmenbazi.cn" target="_blank" rel="noopener">龙门八字 ↗</a>
+    </div>
+    <div class="copyright">© 2026 黄奕博 · 本页可直接发送给招聘方</div>
+  </div>
+</footer>
+
+<script>
+  // 顶栏滚动分隔线
+  const bar = document.getElementById('topbar');
+  const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // 区块出场动画
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
