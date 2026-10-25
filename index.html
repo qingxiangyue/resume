@@ -147,57 +147,57 @@ h1,h2,h3{margin:0;font-weight:600}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .tags span{
   position:relative;
-  font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:#2f2f2f;
+  font-family:var(--mono);font-size:11px;letter-spacing:.02em;
+  color:var(--tf,#3d3d3d);
   padding:5px 11px;border-radius:999px;white-space:nowrap;
-  background:
-    radial-gradient(120% 85% at 50% -25%, #ffffff 0%, rgba(255,255,255,0) 62%),
-    linear-gradient(180deg,#fdfcfb 0%,#f2efe9 58%,#e7e3da 100%);
-  border:1px solid rgba(18,18,18,.08);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -3px 6px rgba(18,18,18,.055),0 2px 3px rgba(18,18,18,.06);
-  opacity:0;transform:scale(.72);
+  background:var(--tb,#f5f4f1);
+  border:1px solid var(--tl,#e7e6e2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(18,18,18,.03);
+  opacity:0;transform:scale(.8);
   transform-origin:center;
   cursor:default;
-  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s ease,background .28s ease;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,filter .3s ease;
   -webkit-user-select:none;user-select:none;
 }
-.in .tags span{animation:jelly .62s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:calc(var(--i,0) * 45ms)}
+.in .tags span{animation:jelly .6s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:calc(var(--i,0) * 45ms)}
 @keyframes jelly{
-  0%{opacity:0;transform:scale(.72)}
-  55%{opacity:1;transform:scale(1.09,.94)}
-  78%{transform:scale(.97,1.02)}
+  0%{opacity:0;transform:scale(.8)}
+  55%{opacity:1;transform:scale(1.06,.97)}
+  80%{transform:scale(.99,1.01)}
   100%{opacity:1;transform:scale(1)}
 }
 @media (hover:hover){
   .tags span:hover{
-    transform:translateY(-2px) scale(1.06,.97);
-    background:linear-gradient(180deg,#ffffff 0%,#f7f5f1 55%,#eeece6 100%);
-    box-shadow:inset 0 1px 0 #fff,inset 0 -3px 6px rgba(18,18,18,.05),0 6px 14px rgba(18,18,18,.09);
+    transform:translateY(-1px);
+    filter:saturate(1.12) brightness(1.02);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 10px rgba(18,18,18,.055);
   }
 }
-.tags span:active{transform:scale(.93,1.04)}
+.tags span:active{transform:scale(.96)}
 
-/* 悬浮说明气泡 */
+/* 悬浮说明气泡（浅色） */
 @media (hover:hover){
   .tags span[data-tip]::after{
     content:attr(data-tip);
     position:absolute;left:50%;bottom:calc(100% + 9px);
-    transform:translate(-50%,6px) scale(.94);
+    transform:translate(-50%,5px);
     transform-origin:bottom center;
     opacity:0;pointer-events:none;z-index:30;
-    background:rgba(20,20,20,.93);color:#fff;
+    background:#fff;color:#1c1c1c;
+    border:1px solid var(--tl,#e7e6e2);
     font-size:11px;line-height:1.45;letter-spacing:.01em;
-    padding:6px 10px;border-radius:8px;white-space:nowrap;
-    box-shadow:0 8px 20px rgba(18,18,18,.18);
-    transition:opacity .22s ease,transform .22s cubic-bezier(.34,1.56,.64,1);
+    padding:6px 10px;border-radius:9px;white-space:nowrap;
+    box-shadow:0 6px 18px rgba(18,18,18,.1);
+    transition:opacity .2s ease,transform .24s cubic-bezier(.34,1.56,.64,1);
   }
   .tags span[data-tip]::before{
-    content:"";position:absolute;left:50%;bottom:calc(100% + 4px);
-    width:7px;height:7px;margin-left:-3.5px;
-    background:rgba(20,20,20,.93);border-radius:2px;
-    transform:rotate(45deg) scale(.9);opacity:0;pointer-events:none;z-index:31;
-    transition:opacity .22s ease;
+    content:"";position:absolute;left:50%;bottom:calc(100% + 5px);
+    width:8px;height:8px;margin-left:-4px;
+    background:#fff;border-right:1px solid var(--tl,#e7e6e2);border-bottom:1px solid var(--tl,#e7e6e2);
+    transform:rotate(45deg) scale(.94);opacity:0;pointer-events:none;z-index:31;
+    transition:opacity .2s ease;
   }
-  .tags span[data-tip]:hover::after{opacity:1;transform:translate(-50%,0) scale(1)}
+  .tags span[data-tip]:hover::after{opacity:1;transform:translate(-50%,0)}
   .tags span[data-tip]:hover::before{opacity:1}
 }
 @media (prefers-reduced-motion:reduce){
@@ -464,15 +464,15 @@ h1,h2,h3{margin:0;font-weight:600}
       <div class="role">独立开发 · AI + 物联网 · 需求分析、方案选型、算法部署、四端交付</div>
       <p class="problem">门店夜间值守人力成本高、盗损难追溯。我用一套「视觉计价 + 行为识别防盗」的完整链路，让门店可以 7×24 小时无人值守。</p>
       <div class="tags">
-        <span style="--i:0" data-tip="服务端主语言">Python</span>
-        <span style="--i:1" data-tip="商品检测模型">YOLOv8</span>
-        <span style="--i:2" data-tip="视频流处理">OpenCV</span>
-        <span style="--i:3" data-tip="摄像头取流">RTSP</span>
-        <span style="--i:4" data-tip="门禁指令下发">MQTT</span>
-        <span style="--i:5" data-tip="购物车暂存与幂等锁">Redis</span>
-        <span style="--i:6" data-tip="订单与审计库">PostgreSQL</span>
-        <span style="--i:7" data-tip="Native / JSAPI 收款">微信支付 V3</span>
-        <span style="--i:8" data-tip="一键部署">Docker</span>
+        <span style="--i:0;--tb:#e8f2fe;--tf:#275e9e;--tl:#c9def8" data-tip="服务端主语言">Python</span>
+        <span style="--i:1;--tb:#e6f7f0;--tf:#1e7a5c;--tl:#c6ebdd" data-tip="商品检测模型">YOLOv8</span>
+        <span style="--i:2;--tb:#e3f6f6;--tf:#1b7779;--tl:#c2e9e9" data-tip="视频流处理">OpenCV</span>
+        <span style="--i:3;--tb:#edeefc;--tf:#47519a;--tl:#d8daf5" data-tip="摄像头取流">RTSP</span>
+        <span style="--i:4;--tb:#e3f4fb;--tf:#1b6c87;--tl:#c4e6f2" data-tip="门禁指令下发">MQTT</span>
+        <span style="--i:5;--tb:#fdecee;--tf:#9c3c46;--tl:#f7d6db" data-tip="购物车暂存与幂等锁">Redis</span>
+        <span style="--i:6;--tb:#eaeef6;--tf:#3c4d6c;--tl:#d4dbeb" data-tip="订单与审计库">PostgreSQL</span>
+        <span style="--i:7;--tb:#e7f6ea;--tf:#2b7138;--tl:#cbe9d1" data-tip="Native / JSAPI 收款">微信支付 V3</span>
+        <span style="--i:8;--tb:#e9f0fc;--tf:#2e5b90;--tl:#d1e0f3" data-tip="一键部署">Docker</span>
       </div>
       <ul class="bullets">
         <li>独立完成从需求分析、方案选型到<b>单店试点部署</b>的全流程，交付服务端、Web 后台、购物小程序、店家 APK 四端</li>
@@ -496,12 +496,12 @@ h1,h2,h3{margin:0;font-weight:600}
       <div class="role">独立开发 · 大模型 + 商业化 · 排盘算法、模型接入、商业化模块、桌面端打包</div>
       <p class="problem">传统命理排盘依赖人工，我把它做成了算法 + 大模型解读的产品，并跑通了从付费到交付的完整闭环。</p>
       <div class="tags">
-        <span style="--i:0" data-tip="排盘服务端与后台">PHP</span>
-        <span style="--i:1" data-tip="生成命理解读">DeepSeek API</span>
-        <span style="--i:2" data-tip="逐字流式输出">SSE 流式输出</span>
-        <span style="--i:3" data-tip="命中缓存不再调模型">结果缓存</span>
-        <span style="--i:4" data-tip="生成中实时扣减">积分计费</span>
-        <span style="--i:5" data-tip="发卡网发放，防重复">激活码</span>
+        <span style="--i:0;--tb:#f2ebfb;--tf:#62419b;--tl:#e0d4f6" data-tip="排盘服务端与后台">PHP</span>
+        <span style="--i:1;--tb:#eaebfb;--tf:#454e9f;--tl:#d6d8f5" data-tip="生成命理解读">DeepSeek API</span>
+        <span style="--i:2;--tb:#fef0e8;--tf:#a2532a;--tl:#f9dccb" data-tip="逐字流式输出">SSE 流式输出</span>
+        <span style="--i:3;--tb:#fbf6e2;--tf:#7c6923;--tl:#f1e7c3" data-tip="命中缓存不再调模型">结果缓存</span>
+        <span style="--i:4;--tb:#fdecf3;--tf:#9b3a62;--tl:#f7d4e2" data-tip="生成中实时扣减">积分计费</span>
+        <span style="--i:5;--tb:#fdf3e3;--tf:#8d6421;--tl:#f4e1c1" data-tip="发卡网发放，防重复">激活码</span>
       </div>
       <ul class="bullets">
         <li>自研八字排盘算法：按立春节气切换年柱、以 24 节气节令划分月柱，结合五虎遁 / 五鼠遁推算四柱，并处理 23 点跨日边界</li>
