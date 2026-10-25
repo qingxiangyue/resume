@@ -232,6 +232,66 @@ h1,h2,h3{margin:0;font-weight:600}
   .problem{font-size:14.5px}
 }
 
+/* ---------- ≥1440px 大屏（2K / 4K 显示器） ---------- */
+@media (min-width:1440px){
+  body{font-size:17.5px;line-height:1.75}
+  .wrap{max-width:900px;padding:0 48px}
+  .hero{padding:76px 0 56px}
+  .hero h1{font-size:clamp(64px,6.2vw,88px)}
+  .hero .role{font-size:14px;letter-spacing:.1em}
+  .lede{font-size:21px;line-height:1.75;max-width:36em}
+  .contacts{gap:10px;margin-top:32px}
+  .contacts a{min-height:46px;padding:0 18px;font-size:14px}
+  .stats{margin-top:52px}
+  .stats div{padding:26px 0}
+  .stats div+div{padding-left:30px}
+  .stats b{font-size:38px}
+  .stats span{font-size:12.5px}
+  .section{padding:72px 0 4px;scroll-margin-top:80px}
+  .sec-head{margin-bottom:30px}
+  .sec-head h2{font-size:15px}
+  .project{padding-bottom:48px;margin-bottom:48px}
+  .project h3{font-size:27px}
+  .project .role{font-size:13.5px;margin-bottom:18px}
+  .project .pidx,.project .date{font-size:12px}
+  .problem{font-size:16px;padding-left:18px;margin-bottom:20px}
+  .tags{gap:7px;margin-bottom:20px}
+  .tags span{font-size:11.5px;padding:4px 9px}
+  .bullets li{font-size:15.5px;line-height:1.8;margin-bottom:11px;padding-left:17px}
+  .live{font-size:14.5px;margin-top:10px}
+  .skills li{grid-template-columns:180px 1fr;padding:20px 0}
+  .skills dt{font-size:12.5px}
+  .skills dd{font-size:15px}
+  .cv li{padding-bottom:26px;padding-left:22px}
+  .cv h4{font-size:17px}
+  .cv .what{font-size:13.5px}
+  .cv .when{font-size:12px}
+  .cv p{font-size:14.5px}
+  .cta{padding:60px 0 76px}
+  .cta h2{font-size:40px}
+  .cta p{font-size:14.5px;margin-bottom:26px}
+  .cta .row a{min-height:50px;padding:0 22px;font-size:14.5px}
+  .foot{max-width:900px;padding:0 48px 56px;font-size:12px}
+}
+
+/* ---------- ≥1920px 超宽屏 ---------- */
+@media (min-width:1920px){
+  body{font-size:20px}
+  .wrap{max-width:1040px;padding:0 56px}
+  .hero h1{font-size:96px}
+  .hero .role{font-size:15px}
+  .lede{font-size:24px}
+  .bullets li{font-size:18px}
+  .problem{font-size:18px}
+  .project h3{font-size:30px}
+  .skills dd{font-size:17.5px}
+  .cv p{font-size:16px}
+  .cv h4{font-size:18px}
+  .cta h2{font-size:44px}
+  .stats b{font-size:42px}
+  .foot{max-width:1040px}
+}
+
 /* ---------- 打印 ---------- */
 @media print{
   .site,.mbar,.nav,.rise{display:none!important;opacity:1!important;transform:none!important}
